@@ -1,20 +1,11 @@
-
+# Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 tasks:
   - name: Dev
     init: echo 'New terminal ready for development'
   - name: Run
     init: pnpm install
-    command: npm run dev
+    command: pnpm dev
 
 vscode:
   extensions:
     - bradlc.vscode-tailwindcsso your remote git repository to share the goodness with others.
-
-# Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
-
-tasks:
-  - name: Dev
-    init: echo 'New terminal ready for development'
-  - name: Run
-    init: pnpm install
-    command: npm run dev
