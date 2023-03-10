@@ -10,9 +10,9 @@ import Link from "next/link"
 // const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  useEffect(() => {
-    redirect('/chat');
- }, []);
+//   useEffect(() => {
+//     redirect('/chat');
+//  }, []);
  return <p></p>;
   return (
     <main>
