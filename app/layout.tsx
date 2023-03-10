@@ -1,15 +1,7 @@
-import 'server-only';
+import { AuthProvider } from '../components/AuthProvider';
+import createClient from '../lib/supabase-server';
 
-import SupabaseListener from '../components/supabase-listener';
-import SupabaseProvider from '../components/supabase-provider';
-import Login from '../components/login';
-import './globals.css'
-import { createServerClient } from '../utils/supabase-server';
-
-import type { Database } from '../db_types';
-import type { SupabaseClient } from '@supabase/auth-helpers-nextjs';
-
-export type TypedSupabaseClient = SupabaseClient<Database>;
+import './globals.css';
 
 // do not cache this layout
 export const revalidate = 0;
@@ -24,20 +16,18 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const supabase = createServerClient();
+  const supabase = createClient();
 
   const {
-    data: { session }
+    data: { session },
   } = await supabase.auth.getSession();
+
+  const accessToken = session?.access_token || null;
 
   return (
     <html lang="en">
       <body>
-        <SupabaseProvider session={session}>
-          <SupabaseListener serverAccessToken={session?.access_token} />
-          <Login />
-          {children}
-        </SupabaseProvider>
+        <AuthProvider accessToken={accessToken}>{children}</AuthProvider>
       </body>
     </html>
   )

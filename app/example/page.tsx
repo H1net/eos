@@ -1,33 +1,35 @@
-import Image from 'next/image';
-// import styles from './page.module.css';
+'use client';
+
+import Link from 'next/link';
+
+import Auth from '../../components/Auth';
+import { useAuth, VIEWS } from '../../components/AuthProvider';
 
 export default function Home() {
-  return (
-    <div>
-      <main>
-        <h1>
-          Welcome to <a href="https://app.supabase.com">Supabase</a> on{' '}
-          <a href="https://nextjs.org">Next.js 13!</a>
-        </h1>
+  const { initial, user, view, signOut } = useAuth();
 
-        <div>
-          <a href="/optional-session">
-            <h2>Optional Session &rarr;</h2>
-            <p>Visit this page with or without a session.</p>
-          </a>
+  if (initial) {
+    return <div className="card h-72">Loading...</div>;
+  }
 
-          <a href="/required-session">
-            <h2>Required Session &rarr;</h2>
-            <p>Get redirected if you don't have a session.</p>
-          </a>
+  if (view === VIEWS.UPDATE_PASSWORD) {
+    return <Auth view={view} />;
+  }
 
-          <a href="/realtime">
-            <h2>Realtime &rarr;</h2>
-            <p>Merge server and client state with realtime.</p>
-          </a>
-        </div>
-      </main>
+  if (user) {
+    return (
+      <div className="card">
+        <h2>Welcome!</h2>
+        <code className="highlight">{user.role}</code>
+        <Link className="button" href="/profile">
+          Go to Profile
+        </Link>
+        <button type="button" className="button-inverse" onClick={signOut}>
+          Sign Out
+        </button>
+      </div>
+    );
+  }
 
-    </div>
-  );
+  return <Auth view={view} />;
 }
