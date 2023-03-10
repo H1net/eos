@@ -18,6 +18,7 @@ export default function Home() {
     <main>
       <div>
         <Link href="/chat">Chat</Link>
+        <Link href="/example">Example</Link>
       </div>
     </main>
   )
