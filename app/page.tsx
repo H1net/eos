@@ -5,19 +5,19 @@ import { redirect } from 'next/navigation';
 // import { Inter } from 'next/font/google'
 // import styles from './page.module.css'
 
-import Link from "next/link"
+// import Link from "next/link"
 
 // const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function HomePage() {
   useEffect(() => {
-    redirect('/chat');
+    redirect('/example');
  }, []);
- return <p></p>;
+//  return <p></p>;
   return (
     <main>
       <div>
-        <Link href="/chat">Chat</Link>
+        This is a placeholder for the homepage
       </div>
     </main>
   )
