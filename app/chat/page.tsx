@@ -12,9 +12,9 @@ export default function ChatPage() {
           </div>
 
           <div className="space-y-2">
-            <p className="infoText">"Explain something to me"</p>
-            <p className="infoText">"What is the difference between a dog and a cat?"</p>
-            <p className="infoText">"What is the color of the sun?"</p>
+            <p className="infoText">&quote;Explain something to me&quote;</p>
+            <p className="infoText">&quote;What is the difference between a dog and a cat?&quote;</p>
+            <p className="infoText">&quote;What is the color of the sun?&quote;</p>
           </div>
         </div>
 
