@@ -18,15 +18,18 @@ export default function Home() {
 
   if (user) {
     return (
-      <div className="card">
+      <div >
         <h2>Welcome!</h2>
-        <code className="highlight">{user.role}</code>
-        <Link className="button" href="/profile">
-          Go to Profile
-        </Link>
-        <button type="button" className="button-inverse" onClick={signOut}>
-          Sign Out
-        </button>
+
+        <code>{user.role}</code>
+
+        <Link href="/profile">Go to Profile</Link>
+
+        <button onClick={signOut}>Sign Out</button>
+
+        <h1>Links</h1>
+        <Link href="/chat">Chat</Link>
+        <Link href="/example">Example</Link>
       </div>
     );
   }
