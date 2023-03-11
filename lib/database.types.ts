@@ -20,7 +20,7 @@ export interface Database {
         Insert: {
           created_at?: string | null
           created_by_profile_id: string
-          id: string
+          id?: string
           model?: string | null
           title?: string | null
         }
@@ -45,7 +45,7 @@ export interface Database {
         Insert: {
           conversation_id: string
           created_at?: string
-          id: string
+          id?: string
           profile_id?: string | null
           role: string
           seen_at?: string | null
