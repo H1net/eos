@@ -27,7 +27,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body>
+      <body className='mx-2'>
         <AuthProvider accessToken={accessToken}>{[<NavBar />, children]}</AuthProvider>
       </body>
     </html>
