@@ -1,5 +1,3 @@
-'use client';
-
 import { useAuth, VIEWS } from '../AuthProvider';
 
 import ResetPassword from './ResetPassword';
@@ -7,7 +5,11 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import UpdatePassword from './UpdatePassword';
 
-const Auth = ({ view: initialView }) => {
+interface AuthProps {
+  view: string;
+}
+
+const Auth = ({ view: initialView }: AuthProps): JSX.Element => {
   let { view } = useAuth();
 
   if (initialView) {

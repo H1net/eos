@@ -5,6 +5,15 @@ import { useRouter } from 'next/navigation';
 
 import supabase from '../lib/supabase-browser';
 
+interface User {
+  email: string;
+  id: string;
+}
+
+interface Session {
+  user: User | null;
+}
+
 export const EVENTS = {
   PASSWORD_RECOVERY: 'PASSWORD_RECOVERY',
   SIGNED_OUT: 'SIGNED_OUT',
@@ -19,30 +28,39 @@ export const VIEWS = {
   UPDATE_PASSWORD: 'update_password',
 };
 
-export const AuthContext = createContext();
+interface AuthContextValue {
+  initial: boolean;
+  session: Session | null;
+  user: User | null;
+  view: string;
+  setView: (view: string) => void;
+  signOut: () => Promise<void>;
+}
 
-export const AuthProvider = (props) => {
+export const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+
+interface AuthProviderProps {
+  accessToken: string;
+  children: React.ReactNode;
+}
+
+export const AuthProvider = ({ accessToken, children }: AuthProviderProps) => {
   const [initial, setInitial] = useState(true);
-  const [session, setSession] = useState(null);
-  const [user, setUser] = useState(null);
-  const [view, setView] = useState(VIEWS.SIGN_IN);
+  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [view, setView] = useState<string>(VIEWS.SIGN_IN);
   const router = useRouter();
-  const { accessToken, ...rest } = props;
 
   useEffect(() => {
     async function getActiveSession() {
-      const {
-        data: { session: activeSession },
-      } = await supabase.auth.getSession();
+      const { data: { session: activeSession } } = await supabase.auth.getSession();
       setSession(activeSession);
       setUser(activeSession?.user ?? null);
       setInitial(false);
     }
     getActiveSession();
 
-    const {
-      data: { subscription: authListener },
-    } = supabase.auth.onAuthStateChange((event, currentSession) => {
+    const { data: { subscription: authListener } } = supabase.auth.onAuthStateChange((event, currentSession) => {
       if (currentSession?.access_token !== accessToken) {
         router.refresh();
       }
@@ -79,10 +97,10 @@ export const AuthProvider = (props) => {
     };
   }, [initial, session, user, view]);
 
-  return <AuthContext.Provider value={value} {...rest} />;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = () => {
+export const useAuth = (): AuthContextValue => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');

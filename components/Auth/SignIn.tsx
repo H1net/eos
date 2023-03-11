@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import cn from 'classnames';
 import { Field, Form, Formik } from 'formik';
@@ -8,16 +6,21 @@ import * as Yup from 'yup';
 import { useAuth, VIEWS } from '../AuthProvider';
 import supabase from '../../lib/supabase-browser';
 
+interface SignInFormData {
+  email: string;
+  password: string;
+}
+
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string().required('Required'),
 });
 
-const SignIn = () => {
+const SignIn = (): JSX.Element => {
   const { setView } = useAuth();
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  async function signIn(formData) {
+  async function signIn(formData: SignInFormData): Promise<void> {
     const { error } = await supabase.auth.signInWithPassword({
       email: formData.email,
       password: formData.password,
@@ -39,7 +42,7 @@ const SignIn = () => {
         validationSchema={SignInSchema}
         onSubmit={signIn}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched }): JSX.Element => (
           <Form className="column w-full">
             <label htmlFor="email">Email</label>
             <Field
