@@ -21,9 +21,9 @@ export default function NavBar() {
   if (user) {
     return (
       <div className='bg-yellow-300'>
-        <div className=''>
+        {/* <div className=''>
           <div className=''>{user.email}</div>
-        </div>
+        </div> */}
 
         <ul className="flex">
           <li className="flex-1 mr-2">
