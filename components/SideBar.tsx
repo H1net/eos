@@ -11,14 +11,12 @@ const ConversationRows = async() => {
   const { data } = await supabase.from('conversations').select('*');
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-4 mt-8">
       {data?.map((convo) => (
-        <div className='border-gray-700 border items-center chatRow'>
-            <Link href={`/chat/${convo.id}`}>
-              <ChatBubbleLeftIcon className="h-4 w-4" />
-              <p>{convo.title}</p>
-            </Link>
-        </div>
+        <Link href={`/chat/${convo.id}`} className='border-gray-700/90 border items-center convoRow'>
+          <ChatBubbleLeftIcon className="h-4 w-4" />
+          <p className="truncate">{convo.title}</p>
+        </Link>
       ))}
     </div>
   )

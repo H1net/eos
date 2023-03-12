@@ -1,12 +1,13 @@
 'use client';
 
+import LoadingNotifier from '@/components/LoadingNotifier';
 import { useAuth, VIEWS } from '../../components/AuthProvider';
 
 export default function Home() {
   const { initial, user, view,  } = useAuth();
 
   if (initial) {
-    return <div className="card h-72">Loading...</div>;
+    return <LoadingNotifier />;
   }
 
   if (user) {

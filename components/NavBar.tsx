@@ -6,12 +6,13 @@ import React from 'react'
 
 import Auth from './Auth';
 import { useAuth, VIEWS } from './AuthProvider';
+import LoadingNotifier from './LoadingNotifier';
 
 export default function NavBar() {
   const { initial, user, view, signOut } = useAuth();
 
   if (initial) {
-    return <div className="card h-72">Loading...</div>;
+    return <LoadingNotifier />;
   }
 
   if (view === VIEWS.UPDATE_PASSWORD) {
