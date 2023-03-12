@@ -6,7 +6,7 @@ import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline"
 // type Profiles = Database['public']['Tables']['profiles']['Row']
 // type Conversations = Database['public']['Tables']['conversations']['Row']
 
-async function  ConversationRows() {
+const ConversationRows = async() => {
   const supabase = createServerClient();
   const { data } = await supabase.from('conversations').select('*');
 
@@ -14,8 +14,10 @@ async function  ConversationRows() {
     <div className="space-y-2">
       {data?.map((convo) => (
         <div className='border-gray-700 border items-center chatRow'>
-            <ChatBubbleLeftIcon className="h-4 w-4" />
-            <p>{convo.title}</p>
+            <Link href={`/chat/${convo.id}`}>
+              <ChatBubbleLeftIcon className="h-4 w-4" />
+              <p>{convo.title}</p>
+            </Link>
         </div>
       ))}
     </div>
