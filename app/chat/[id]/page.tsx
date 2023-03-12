@@ -5,6 +5,20 @@ import createServerClient from "@/lib/supabase-server"
 // do not cache this page
 export const revalidate = 0;
 
+const messageClassName = (message) => {
+  switch (message.role) {
+    case 'system': return 'msgUserText';
+    break
+    case 'bot': return 'msgBotText';
+    break
+    case 'assistant': return 'msgBotText';
+    break
+    case 'user': return 'msgUserText';
+    break
+    default: return 'msgBotText';
+  }
+}
+
 export default async function ConversationPage({
     params,
     searchParams,
@@ -20,7 +34,7 @@ export default async function ConversationPage({
       <h1 className="text-5xl font-bold mb-20">Chat GPT Conversation</h1>
       <div className='flex flex-col space-x-2 space-y-8 text-center'>
         {data?.map((message) => (
-          <div>
+          <div className={messageClassName(message)}>
             <p>{message.text}</p>
           </div>
         ))}
