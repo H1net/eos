@@ -1,13 +1,13 @@
 import NewChat from "./NewChat"
-import createServerClient from "@/lib/supabase-server"
 // import { Database } from "@/lib/database.types"
 import Link from "next/link"
+import { supabase } from "@/lib/supabase"
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline"
 // type Profiles = Database['public']['Tables']['profiles']['Row']
 // type Conversations = Database['public']['Tables']['conversations']['Row']
 
 const ConversationRows = async() => {
-  const supabase = createServerClient();
+  // const supabase = createServerClient();
   const { data } = await supabase.from('conversations').select('*');
 
   return (
