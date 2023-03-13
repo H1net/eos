@@ -34,7 +34,7 @@ export default async function ConversationPage({
       <h1 className="text-5xl font-bold mb-20">Chat GPT Conversation</h1>
       <div className='flex flex-col space-x-2 space-y-8 text-center'>
         {data?.map((message) => (
-          <div className={messageClassName(message)}>
+          <div className={messageClassName(message)} key={message.id}>
             <p>{message.text}</p>
           </div>
         ))}

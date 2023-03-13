@@ -13,7 +13,7 @@ const ConversationRows = async() => {
   return (
     <div className="space-y-4 mt-8">
       {data?.map((convo) => (
-        <Link href={`/chat/${convo.id}`} className='border-gray-700/90 border items-center convoRow'>
+        <Link href={`/chat/${convo.id}`} className='border-gray-700/90 border items-center convoRow' key={convo.id}>
           <ChatBubbleLeftIcon className="h-4 w-4" />
           <p className="truncate">{convo.title}</p>
         </Link>
