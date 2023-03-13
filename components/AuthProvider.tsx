@@ -4,15 +4,16 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import supabase from '../lib/supabase-browser';
+import type { Session, User } from "@supabase/supabase-js"
 
-interface User {
-  email: string;
-  id: string;
-}
+// interface User {
+//   email: string;
+//   id: string;
+// }
 
-interface Session {
-  user: User | null;
-}
+// interface Session {
+//   user: User | null;
+// }
 
 export const EVENTS = {
   PASSWORD_RECOVERY: 'PASSWORD_RECOVERY',
