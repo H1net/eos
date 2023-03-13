@@ -29,16 +29,16 @@ export const VIEWS = {
   UPDATE_PASSWORD: 'update_password',
 };
 
-interface AuthContextValue {
-  initial: boolean;
-  session: Session | null;
-  user: User | null;
-  view: string;
-  setView: (view: string) => void;
-  signOut: () => Promise<void>;
-}
+// interface AuthContextValue {
+//   initial: boolean;
+//   session: Session | null;
+//   user: User | null;
+//   view: string;
+//   setView: (view: string) => void;
+//   signOut: () => Promise<void>;
+// }
 
-export const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+export const AuthContext = createContext<any | undefined>(undefined);
 
 interface AuthProviderProps {
   accessToken: string | null;
@@ -101,7 +101,7 @@ export const AuthProvider = ({ accessToken, children }: AuthProviderProps) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = (): AuthContextValue => {
+export const useAuth = (): any => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
