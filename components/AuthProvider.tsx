@@ -40,7 +40,7 @@ interface AuthContextValue {
 export const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 interface AuthProviderProps {
-  accessToken: string;
+  accessToken: string | null;
   children: React.ReactNode;
 }
 
