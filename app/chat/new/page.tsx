@@ -22,7 +22,7 @@ const Create = () => {
 
  const { title, messageText } = conversationData;
 
- const handleChange = (e) => {
+ const handleChange = (e: any) => {
    setConversationData({ ...conversationData, [e.target.name]: e.target.value });
  };
 
@@ -44,7 +44,7 @@ const Create = () => {
     //  setConversationData(initialState);
     // console.log(data)
      router.push("/chat/"+data.id);
-   } catch (error) {
+   } catch (error: any) {
      alert(error.message);
    }
  };
