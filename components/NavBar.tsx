@@ -30,6 +30,9 @@ export default function NavBar() {
           <li className="flex-1 mr-2">
             <Link className="text-center block border border-red-500 rounded py-2 px-4 bg-red-500 hover:bg-red-700 text-white" href="/chat">Chat</Link>
           </li>
+          <li className="flex-1 mr-2">
+            <Link className="text-center block border border-red-500 rounded py-2 px-4 bg-red-500 hover:bg-red-700 text-white" href="/property/key">Keys</Link>
+          </li>
           <li className="flex-1 mr-5">
             <Link className="text-center block border border-white rounded hover:border-gray-200 text-red-500 hover:bg-red-700 hover:text-white py-2 px-4" href="/example">DevExamples</Link>
           </li>
