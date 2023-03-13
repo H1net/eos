@@ -16,7 +16,7 @@ export default function ExamplePage() {
       <div >
         <h2>Welcome!</h2>
 
-        <code>{user.role}</code>
+        {/* <code>{user.role}</code> */}
         <ul>
           <li><Link href="/example/test">Test</Link></li>
           <li><Link href="/example/openai-chatgpt">OpenAI ChatGPT</Link></li>
