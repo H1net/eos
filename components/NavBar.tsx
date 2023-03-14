@@ -1,6 +1,6 @@
 'use client';
 
-import { UserIcon, ArrowLeftOnRectangleIcon, BuildingOfficeIcon } from '@heroicons/react/24/outline';
+import { UserIcon, ArrowLeftOnRectangleIcon, BuildingOfficeIcon, KeyIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React from 'react'
 
@@ -31,7 +31,7 @@ export default function NavBar() {
             <Link className="text-center block border border-red-500 rounded py-2 px-4 bg-red-500 hover:bg-red-700 text-white" href="/chat">Chat</Link>
           </li>
           <li className="flex-1 mr-2">
-            <Link className="text-center block border border-red-500 rounded py-2 px-4 bg-red-500 hover:bg-red-700 text-white" href="/property/key">Keys</Link>
+            <Link className="text-center block border border-red-500 rounded py-2 px-4 bg-red-500 hover:bg-red-700 text-white" href="/property/key"><KeyIcon className='h-6 w-6' /></Link>
           </li>
           <li className="flex-1 mr-5">
             <Link className="text-center block border rounded hover:border-gray-200 text-orange-600 hover:bg-orange-700 hover:text-white py-2 px-4" href="/example"><BuildingOfficeIcon className='h-6 w-6' /></Link>
