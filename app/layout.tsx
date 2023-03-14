@@ -27,7 +27,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className='mx-2'>
+      <body className='mx-2 bg-[#343541] text-white'>
         <AuthProvider accessToken={accessToken}><><NavBar /> <>{children}</></></AuthProvider>
       </body>
     </html>
