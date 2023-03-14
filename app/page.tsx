@@ -11,13 +11,14 @@ import { redirect } from 'next/navigation';
 
 export default function HomePage() {
   useEffect(() => {
-    redirect('/example');
+    // redirect('/example');
  }, []);
 //  return <p></p>;
   return (
     <main>
-      <div>
-        This is a placeholder for the homepage
+      <div className='text-center'>
+        <p className='mt-5'>Welcome to <span className='font-bold underline'>Eos</span>, by <span className=' italic'>&copy; FreshDevs</span></p>
+        <p className='mt-5'>Please sign in for the menu.</p>
       </div>
     </main>
   )
