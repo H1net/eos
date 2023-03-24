@@ -4,19 +4,19 @@
 
 @layer components {
     .infoText {
-        @apply p-4 bg-gray-700/50 rounded-lg max-w-[300px]
+        @apply p-4 bg-gray-700/50 rounded-lg max-w-[800px]
     }
 
     .msgSystemText {
-        @apply p-4 bg-yellow-500/50 rounded-lg max-w-[300px]
+        @apply p-4 bg-yellow-500/50 rounded-lg max-w-[800px]
     }
 
     .msgUserText {
-        @apply p-4 bg-red-700/50 rounded-lg max-w-[300px]
+        @apply p-4 bg-red-700/50 rounded-lg max-w-[800px]
     }
 
     .msgBotText {
-        @apply p-4 bg-gray-700/50 rounded-lg max-w-[300px]
+        @apply p-4 bg-gray-700/50 rounded-lg max-w-[800px]
     }
 
     .convoRow {
@@ -33,6 +33,9 @@
         text-gray-300 transition-all duration-200 ease-out
     }
 }
+
+/* import markdown.css */
+@import url('markdown.css');
 
 /* :root {
     --max-width: 1100px;

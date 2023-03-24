@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import supabase from '../lib/supabase-browser';
+import { supabaseCreateForBrowser } from '../lib/supabase-browser';
 import type { Session, User } from "@supabase/supabase-js"
 
 // interface User {
@@ -50,7 +50,10 @@ export const AuthProvider = ({ accessToken, children }: AuthProviderProps) => {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [view, setView] = useState<string>(VIEWS.SIGN_IN);
+  const [supabase] = useState(() => supabaseCreateForBrowser())
   const router = useRouter();
+
+
 
   useEffect(() => {
     async function getActiveSession() {

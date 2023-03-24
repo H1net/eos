@@ -1,6 +1,7 @@
 import { BoltIcon, ExclamationTriangleIcon, SunIcon } from '@heroicons/react/24/outline'
 
-import createServerClient from "@/lib/supabase-server"
+import { supabaseCreateForServer } from "@/lib/supabase-server"
+import TextDisplay from '@/components/TextDisplay';
 
 // do not cache this page
 export const revalidate = 0;
@@ -26,7 +27,7 @@ export default async function ConversationPage({
     params: { id: string };
     searchParams?: { [key: string]: string | string[] | undefined };
   }) {
-  const supabase = createServerClient();
+  const supabase = supabaseCreateForServer();
   const { data } = await supabase.from('messages').select('*').eq('conversation_id', params.id);
 
   return (
@@ -35,7 +36,8 @@ export default async function ConversationPage({
       <div className='flex flex-col space-x-2 space-y-8 text-center'>
         {data?.map((message) => (
           <div className={messageClassName(message)} key={message.id}>
-            <p>{message.text}</p>
+            {/* <p>{message.text}</p> */}
+            <TextDisplay markdownText={message.text} />
           </div>
         ))}
         {/* <div>
