@@ -9,7 +9,7 @@ import './globals.css';
 export const revalidate = 0;
 
 export const metadata = {
-  title: 'Apollo',
+  title: 'Eos',
   description: 'Desktop and mobile productivity boost',
   icons: {
     // icon: '/icon.png',

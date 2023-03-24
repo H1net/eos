@@ -1,7 +1,7 @@
 import SideBar from "@/components/SideBar"
 
 export const metadata = {
-  title: 'Apollo',
+  title: 'Eos',
   description: 'Desktop and mobile productivity boost',
 }
 
