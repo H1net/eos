@@ -4,7 +4,7 @@ import { UserIcon, ArrowLeftOnRectangleIcon, BuildingOfficeIcon, HomeIcon, ChatB
 import Link from 'next/link';
 import React from 'react'
 import Image from 'next/image'
-import logoImage from '../public/logo-v01.png'
+import logoImage from '../public/apollo-logo-192x192.png'
 
 import Auth from './Auth';
 import { useAuth, VIEWS } from './AuthProvider';
