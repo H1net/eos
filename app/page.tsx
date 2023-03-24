@@ -6,7 +6,7 @@ export default function HomePage() {
       <section>
         <article className='card'>
           <div className='card-body'>
-            <p>Welcome to <span className='font-bold underline'>Apollo</span>, by <span className=' italic'>&copy; AstraNormical</span></p>
+            <p>Welcome to <span className='font-bold underline'>Eos</span></p>
             <p>Please sign in for the menu.</p>
           </div>
         </article>
