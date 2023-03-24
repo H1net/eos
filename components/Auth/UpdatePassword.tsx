@@ -2,8 +2,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-
-import supabase from '../../lib/supabase-browser';
+import { supabaseCreateForBrowser } from '@/lib/supabase-browser';
 
 interface UpdatePasswordFormData {
   password: string;
@@ -15,6 +14,7 @@ const UpdatePasswordSchema = Yup.object().shape({
 
 const UpdatePassword = (): JSX.Element => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [supabase] = useState(() => supabaseCreateForBrowser())
 
   async function updatePassword(formData: UpdatePasswordFormData): Promise<void> {
     const { data, error } = await supabase.auth.updateUser({

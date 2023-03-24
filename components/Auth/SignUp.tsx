@@ -1,10 +1,12 @@
+'use client';
+
 import { useState } from 'react';
 import cn from 'classnames';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { useAuth, VIEWS } from '../AuthProvider';
-import supabase from '../../lib/supabase-browser';
+import { supabaseCreateForBrowser } from '@/lib/supabase-browser';
 
 interface SignUpFormData {
   email: string;
@@ -20,6 +22,7 @@ const SignUp = (): JSX.Element => {
   const { setView } = useAuth();
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [supabase] = useState(() => supabaseCreateForBrowser())
 
   async function signUp(formData: SignUpFormData): Promise<void> {
     const { error } = await supabase.auth.signUp({
