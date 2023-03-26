@@ -20,6 +20,9 @@ export default function ExamplePage() {
         <ul>
           <li><Link href="/example/test">Test</Link></li>
           <li><Link href="/example/openai-chatgpt">OpenAI ChatGPT</Link></li>
+          <li><Link href="/example/daisyui">daisyUI</Link></li>
+          <li><Link href="/example/db/server">DB - Server Side</Link></li>
+          <li><Link href="/example/db/client">DB - Client Side</Link></li>
         </ul>
       </div>
     );

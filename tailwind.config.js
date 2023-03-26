@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const colors = require('tailwindcss/colors')
+
 module.exports = {
     mode: 'jit',
     content: [
@@ -7,7 +10,38 @@ module.exports = {
         "./components/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                'secondary-content': colors.red,
+                // '' 
+            }    
+        },
+        // colors: {
+        //     'secondary-content': colors.red 
+        // },
     },
-    plugins: [],
+    darkMode: 'class',
+    plugins: [
+        require("@tailwindcss/forms"),
+        require('@tailwindcss/typography'),
+        require("daisyui"),
+    ],
+    daisyui:{
+        themes:[
+            {
+              bulmblebee: {
+                ...require("daisyui/src/colors/themes")["[data-theme=light]"],
+                "secondary-content": "blue",
+              },
+            },
+        ],
+        styled: true,
+        themes: true,
+        base: true,
+        utils: true,
+        logs: true,
+        rtl: false,
+        prefix: "",
+        darkTheme: "bumblebee",
+    },
 }
