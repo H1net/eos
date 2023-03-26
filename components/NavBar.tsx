@@ -1,6 +1,6 @@
 'use client';
 
-import { UserIcon, ArrowLeftOnRectangleIcon, BuildingOfficeIcon, HomeIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/react/24/outline';
+import { UserIcon, ArrowLeftOnRectangleIcon, BuildingOfficeIcon, HomeIcon, ChatBubbleLeftEllipsisIcon, KeyIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React from 'react'
 import Image from 'next/image'
@@ -32,6 +32,9 @@ export default function NavBar() {
             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-primary text-primary-content rounded-box w-52">
               <li>
                 <Link href="/"><HomeIcon className='h-6 w-6' /> Home</Link>
+              </li>
+              <li>
+                <Link href="/property/key"><KeyIcon className='h-6 w-6' />Keys</Link>
               </li>
               <li>
                 <Link href="/chat"><ChatBubbleLeftEllipsisIcon className='h-6 w-6' />Chat</Link>
