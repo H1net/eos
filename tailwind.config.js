@@ -10,9 +10,14 @@ module.exports = {
         "./components/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                'secondary-content': colors.red,
+                // '' 
+            }    
+        },
         // colors: {
-            // 'secondary-content': colors.red 
+        //     'secondary-content': colors.red 
         // },
     },
     darkMode: 'class',
@@ -24,8 +29,8 @@ module.exports = {
     daisyui:{
         themes:[
             {
-              light: {
-                ...require("daisyui/src/colors/themes")["[data-theme=bumblebee]"],
+              bulmblebee: {
+                ...require("daisyui/src/colors/themes")["[data-theme=light]"],
                 "secondary-content": "blue",
               },
             },
@@ -37,6 +42,6 @@ module.exports = {
         logs: true,
         rtl: false,
         prefix: "",
-        darkTheme: "light",
+        darkTheme: "bumblebee",
     },
 }
