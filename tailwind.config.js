@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const colors = require('tailwindcss/colors')
+
 module.exports = {
     mode: 'jit',
     content: [
@@ -8,6 +11,9 @@ module.exports = {
     ],
     theme: {
         extend: {},
+        // colors: {
+            // 'secondary-content': colors.red 
+        // },
     },
     darkMode: 'class',
     plugins: [
@@ -16,6 +22,21 @@ module.exports = {
         require("daisyui"),
     ],
     daisyui:{
-        themes:['dark', 'bumblebee']
+        themes:[
+            {
+              light: {
+                ...require("daisyui/src/colors/themes")["[data-theme=bumblebee]"],
+                "secondary-content": "blue",
+              },
+            },
+        ],
+        styled: true,
+        themes: true,
+        base: true,
+        utils: true,
+        logs: true,
+        rtl: false,
+        prefix: "",
+        darkTheme: "light",
     },
 }

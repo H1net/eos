@@ -37,7 +37,7 @@ export default async function RootLayout({
 
   return (
     // <html lang="en" className='dark bg-[#343541]' data-theme="bumblebee">
-    <html lang="en" className='' data-theme="bumblebee">
+    <html lang="en" className='' data-theme="light">
     <body>
       {/* <body className='mx-2 bg-[#343541] text-white'> */}
         <AuthProvider accessToken={accessToken}>
