@@ -1,6 +1,7 @@
-import { supabase } from "@/lib/supabase"
+import { supabaseCreateForServer } from "@/lib/supabase-server"
 
 export default async function KeyPage() {
+  const supabase = supabaseCreateForServer()
   const { data: propertyKey }: any = await supabase.from('property_keys').select('*, propertys (*)').single();
   const { propertys: property } = propertyKey
   const { data: propertyKeyRequests } = await supabase.from('property_key_requests').select('*');

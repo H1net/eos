@@ -1,7 +1,8 @@
-import { supabase } from "@/lib/supabase"
+import { supabaseCreateForServer } from "@/lib/supabase-server";
 import Link from "next/link";
 
 export default async function KeysPage() {
+  const supabase = supabaseCreateForServer()
   const { data } = await supabase.from('property_keys').select('*, propertys (*)');
   // console.log(data)
   return (
