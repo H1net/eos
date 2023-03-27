@@ -37,8 +37,8 @@ const SignIn = (): JSX.Element => {
   }
 
   return (
-    <div className="flex flex-col bg-orange-300 rounded p-2 m-1 text-center text-orange-800">
-      <h2 className="text-center font-bold p-1 m-1 bg-orange-200 align-middle">Sign In</h2>
+    <div className="flex flex-col bg-yellow-300 rounded p-2 m-1 text-center text-yellow-800">
+      <h2 className="text-center font-bold p-1 m-1 bg-yellow-200 align-middle">Sign In</h2>
       <Formik
         initialValues={{
           email: '',
@@ -51,7 +51,7 @@ const SignIn = (): JSX.Element => {
           <Form className="flex flex-col">
             <label htmlFor="email" className='m-1'>Email</label>
             <Field
-              className={cn('bg-orange-200', 'input', errors.email && touched.email && 'bg-red-50')}
+              className={cn('bg-yellow-200', 'input', errors.email && touched.email && 'bg-red-50')}
               id="email"
               name="email"
               placeholder="jane@acme.com"
@@ -73,7 +73,7 @@ const SignIn = (): JSX.Element => {
             ) : null}
 
             <button
-              className="m-1 mt-3 bg-orange-400 hover:bg-orange-700 text-white py-2 px-4 rounded"
+              className="m-1 mt-3 bg-yellow-400 hover:bg-yellow-700 text-white py-2 px-4 rounded"
               type="button"
               onClick={() => setView(VIEWS.FORGOTTEN_PASSWORD)}
             >
@@ -81,7 +81,7 @@ const SignIn = (): JSX.Element => {
             </button>
 
             <button
-              className="m-1 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+              className="m-1 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
               type="submit"
             >
               Submit
