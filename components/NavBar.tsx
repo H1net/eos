@@ -34,7 +34,7 @@ export default function NavBar() {
                 <Link href="/"><HomeIcon className='h-6 w-6' /> Home</Link>
               </li>
               <li>
-                <Link href="/property/key"><KeyIcon className='h-6 w-6' />Keys</Link>
+                <Link href="/property/key/request"><KeyIcon className='h-6 w-6' />Key Requests</Link>
               </li>
               <li>
                 <Link href="/chat"><ChatBubbleLeftEllipsisIcon className='h-6 w-6' />Chat</Link>
