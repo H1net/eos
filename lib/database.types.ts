@@ -156,6 +156,7 @@ export interface Database {
           id: string
           in_at: string | null
           out_at: string | null
+          property_id: string | null
           property_key_id: string
           updated_at: string | null
         }
@@ -167,6 +168,7 @@ export interface Database {
           id?: string
           in_at?: string | null
           out_at?: string | null
+          property_id?: string | null
           property_key_id: string
           updated_at?: string | null
         }
@@ -178,6 +180,7 @@ export interface Database {
           id?: string
           in_at?: string | null
           out_at?: string | null
+          property_id?: string | null
           property_key_id?: string
           updated_at?: string | null
         }
