@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server';
  * middleware's `matcher` array. Without this, the Server Component may try to make a
  * request to Supabase with an expired `access_token`.
  */
-export async function middleware(req) {
+export async function middleware(req: any) {
   const res = NextResponse.next();
 
   const supabase = createMiddlewareSupabaseClient({ req, res });

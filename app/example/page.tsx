@@ -1,12 +1,14 @@
 'use client';
 
+import LoadingNotifier from '@/components/LoadingNotifier';
+import Link from 'next/link';
 import { useAuth, VIEWS } from '../../components/AuthProvider';
 
-export default function Home() {
+export default function ExamplePage() {
   const { initial, user, view,  } = useAuth();
 
   if (initial) {
-    return <div className="card h-72">Loading...</div>;
+    return <LoadingNotifier />;
   }
 
   if (user) {
@@ -14,7 +16,14 @@ export default function Home() {
       <div >
         <h2>Welcome!</h2>
 
-        <code>{user.role}</code>
+        {/* <code>{user.role}</code> */}
+        <ul>
+          <li><Link href="/example/test">Test</Link></li>
+          <li><Link href="/example/openai-chatgpt">OpenAI ChatGPT</Link></li>
+          <li><Link href="/example/daisyui">daisyUI</Link></li>
+          <li><Link href="/example/db/server">DB - Server Side</Link></li>
+          <li><Link href="/example/db/client">DB - Client Side</Link></li>
+        </ul>
       </div>
     );
   }

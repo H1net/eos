@@ -6,7 +6,7 @@ import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { useAuth, VIEWS } from '../AuthProvider';
-import supabase from '../../lib/supabase-browser';
+import { supabaseCreateForBrowser } from '@/lib/supabase-browser';
 
 const ResetPasswordSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -14,16 +14,17 @@ const ResetPasswordSchema = Yup.object().shape({
 
 const ResetPassword = () => {
   const { setView } = useAuth();
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [successMsg, setSuccessMsg] = useState(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [supabase] = useState(() => supabaseCreateForBrowser())
 
-  async function resetPassword(formData) {
+  async function resetPassword(formData: { email: string; }) {
     const { error } = await supabase.auth.resetPasswordForEmail(formData?.email, {
       redirectTo: `${process.env.NEXT_PUBLIC_SUPABASE_BASE_URL}`,
     });
 
     if (error) {
-      setErrorMsg(error.message);
+      setErrorMsg(error.message as string);
     } else {
       setSuccessMsg('Password reset instructions sent.');
     }

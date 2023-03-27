@@ -1,25 +1,30 @@
 import NewChat from "./NewChat"
-import createServerClient from "@/lib/supabase-server"
 // import { Database } from "@/lib/database.types"
 import Link from "next/link"
+import { supabaseCreateForServer } from "@/lib/supabase-server"
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline"
+import LoadingNotifier from "./LoadingNotifier"
 // type Profiles = Database['public']['Tables']['profiles']['Row']
 // type Conversations = Database['public']['Tables']['conversations']['Row']
 
 const ConversationRows = async() => {
-  const supabase = createServerClient();
+  const supabase = supabaseCreateForServer();
   const { data } = await supabase.from('conversations').select('*');
 
+  if (!Array.isArray(data)) {
+    return <LoadingNotifier />;
+  }
+
   return (
-    <div className="space-y-2">
-      {data?.map((convo) => (
-        <div className='border-gray-700 border items-center chatRow'>
-            <Link href={`/chat/${convo.id}`}>
-              <ChatBubbleLeftIcon className="h-4 w-4" />
-              <p>{convo.title}</p>
-            </Link>
-        </div>
-      ))}
+    <div className="space-y-4 mt-8">
+      <>
+        {data.map((convo) => (
+          <Link href={`/chat/${convo.id}`} className='border-gray-700/90 border items-center convoRow' key={convo.id}>
+            <ChatBubbleLeftIcon className="h-4 w-4" />
+            <p className="truncate">{convo.title}</p>
+          </Link>
+        ))}
+      </>
     </div>
   )
   // return <pre>{JSON.stringify({ data }, null, 2)}</pre>;
@@ -39,6 +44,7 @@ export default function SideBar() {
           </div>
 
           {/* Map through the ChatRows */}
+          {/* @ts-expect-error Server Component */}
           <ConversationRows />
         </div>
       </div>

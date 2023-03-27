@@ -3,16 +3,17 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import supabase from '../lib/supabase-browser';
+import { supabaseCreateForBrowser } from '../lib/supabase-browser';
+import type { Session, User } from "@supabase/supabase-js"
 
-interface User {
-  email: string;
-  id: string;
-}
+// interface User {
+//   email: string;
+//   id: string;
+// }
 
-interface Session {
-  user: User | null;
-}
+// interface Session {
+//   user: User | null;
+// }
 
 export const EVENTS = {
   PASSWORD_RECOVERY: 'PASSWORD_RECOVERY',
@@ -28,19 +29,19 @@ export const VIEWS = {
   UPDATE_PASSWORD: 'update_password',
 };
 
-interface AuthContextValue {
-  initial: boolean;
-  session: Session | null;
-  user: User | null;
-  view: string;
-  setView: (view: string) => void;
-  signOut: () => Promise<void>;
-}
+// interface AuthContextValue {
+//   initial: boolean;
+//   session: Session | null;
+//   user: User | null;
+//   view: string;
+//   setView: (view: string) => void;
+//   signOut: () => Promise<void>;
+// }
 
-export const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+export const AuthContext = createContext<any | undefined>(undefined);
 
 interface AuthProviderProps {
-  accessToken: string;
+  accessToken: string | null;
   children: React.ReactNode;
 }
 
@@ -49,7 +50,10 @@ export const AuthProvider = ({ accessToken, children }: AuthProviderProps) => {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [view, setView] = useState<string>(VIEWS.SIGN_IN);
+  const [supabase] = useState(() => supabaseCreateForBrowser())
   const router = useRouter();
+
+
 
   useEffect(() => {
     async function getActiveSession() {
@@ -100,7 +104,7 @@ export const AuthProvider = ({ accessToken, children }: AuthProviderProps) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = (): AuthContextValue => {
+export const useAuth = (): any => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
