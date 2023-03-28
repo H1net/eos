@@ -181,8 +181,8 @@ export default function PropertyKeyRequestsList({
                 type="text"
                 placeholder="Type here"
                 className="input w-full max-w-xs"
-                name="searchText"
-                value={filter.searchText ?? ''}
+                name="search_text"
+                value={filter.search_text ?? ''}
                 onChange={handleChange}
               />
             </label>
