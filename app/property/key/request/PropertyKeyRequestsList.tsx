@@ -6,11 +6,25 @@ import LoadingNotifier from '@/components/LoadingNotifier'
 import { StarIcon, CheckIcon } from '@heroicons/react/24/outline'
 import { useState, useEffect, useMemo } from 'react'
 import { supabaseCreateForBrowser } from '@/lib/supabase-browser'
-type PropertyKeyRequest = Database['public']['Tables']['property_key_requests']['Row']
+type PropertyKeyRequest =
+  Database['public']['Tables']['property_key_requests']['Row']
 
 export const revalidate = 0
 
-function PropertyKeyRequestRow({ propertyKeyRequest }: { propertyKeyRequest: PropertyKeyRequest }) {
+export const property_key_statuses = [
+  { key: 'ON_HOOK', value: 'On Hook' },
+  { key: 'WITH_SUPPLIER', value: 'With Supplier' },
+  { key: 'WITH_STAFF', value: 'With Staff' },
+  { key: 'WITH_OWNER', value: 'With Owner' },
+  { key: 'WITH_TENANT', value: 'With Tenant' },
+  { key: 'WITH_CONCIERGE', value: 'With Concierge' },
+]
+
+function PropertyKeyRequestRow({
+  propertyKeyRequest,
+}: {
+  propertyKeyRequest: PropertyKeyRequest
+}) {
   const [checked, setChecked] = useState(false)
 
   const handleCheck = () => {
@@ -26,71 +40,85 @@ function PropertyKeyRequestRow({ propertyKeyRequest }: { propertyKeyRequest: Pro
         onChange={handleCheck}
       /> */}
       <Link href={`/propertyKeyRequest/${propertyKeyRequest.id}`}>
-        {propertyKeyRequest.id} 
+        {propertyKeyRequest.id}
       </Link>
     </div>
   )
 }
 
-export default function PropertyKeyRequestsList({ data }: { data: PropertyKeyRequest[] }) {
+export default function PropertyKeyRequestsList({
+  data,
+}: {
+  data: PropertyKeyRequest[]
+}) {
   const initialFilterState = {
     search_text: '',
     mode: 'new', // new, out, in
-    property_key_id: '0',
     property_key_status: '', // ON_HOOK
-    completed: false,
+    property_id: '',
+    property_key_id: '',
   }
-  const [propertyKeyRequests, setPropertyKeyRequests] = useState<PropertyKeyRequest[]>(data)
+  const [propertyKeyRequests, setPropertyKeyRequests] =
+    useState<PropertyKeyRequest[]>(data)
   // TODO should be useMemo instead of useState to prevent uncessary calls?
 
   const [supabase] = useState(() => supabaseCreateForBrowser())
   const [filter, setFilter] = useState(initialFilterState)
 
-  const filterStarred = (propertyKeyRequest: PropertyKeyRequest) => {
-    // console.log('filter', filter)
-    // if (propertyKeyRequest.starred) {
-    //   return true
-    // } else {
-    //   return filter.starred ? false : true
-    // }
+  const filterSearchText = (propertyKeyRequest: PropertyKeyRequest) => {
+    const search_text = filter.search_text?.toLowerCase().trim()
+    if (!search_text) return true
+    return Object.values(propertyKeyRequest).some((val) =>
+      String(val).toLowerCase().includes(search_text)
+    )
+  }
+
+  const filterMode = (propertyKeyRequest: PropertyKeyRequest) => {
     return true
   }
 
-  const filterCompleted = (propertyKeyRequest: PropertyKeyRequest) => {
-    // console.log('filter', filter)
-    // if (propertyKeyRequest.completed_at) {
-    //   return filter.completed ? true : false
-    // } else {
-    //   return filter.completed ? false : true
-    // }
+  const filterPropertyKeyStatus = (propertyKeyRequest: PropertyKeyRequest) => {
     return true
   }
 
-  const filterStatus = (propertyKeyRequest: PropertyKeyRequest) => {
-    // console.log('filter', filter)
-    // if (filter.propertyKeyRequest_group_id > 0) {
-    //   return filter.propertyKeyRequest_group_id == propertyKeyRequest.propertyKeyRequest_group_id ? true : false
-    // } else {
-    //   return true
-    // }
-    return true
+  const filterProperty = (propertyKeyRequest: PropertyKeyRequest) => {
+    if (filter.property_id) {
+      return filter.property_id == propertyKeyRequest.property_id ? true : false
+    } else {
+      return true
+    }
+  }
+
+  const filterPropertyKey = (propertyKeyRequest: PropertyKeyRequest) => {
+    if (filter.property_key_id) {
+      return filter.property_key_id == propertyKeyRequest.property_key_id
+        ? true
+        : false
+    } else {
+      return true
+    }
   }
 
   const filteredPropertyKeyRequests = useMemo<PropertyKeyRequest[]>(
     () =>
-      propertyKeyRequests.filter(filterCompleted).filter(filterStarred).filter(filterStatus),
-    [propertyKeyRequests, filterCompleted, filterStarred, filterStatus],
+      propertyKeyRequests
+        .filter(filterMode)
+        .filter(filterPropertyKeyStatus)
+        .filter(filterProperty)
+        .filter(filterPropertyKey)
+        .filter(filterSearchText),
+    [
+      propertyKeyRequests,
+      filterSearchText,
+      filterMode,
+      filterPropertyKeyStatus,
+      filterProperty,
+      filterPropertyKey,
+    ]
   )
-
-  // const applyFilters = () => {
-  //   const newFilteredPropertyKeyRequests = propertyKeyRequests.filter(filterCompleted)
-  //   console.log('newFilteredPropertyKeyRequests', newFilteredPropertyKeyRequests)
-  //   setFilteredPropertyKeyRequests(newFilteredPropertyKeyRequests)
-  // }
 
   const handleChange = (e: any) => {
     setFilter({ ...filter, [e.target.name]: e.target.value })
-    // applyFilters()
   }
 
   useEffect(() => {
@@ -103,7 +131,7 @@ export default function PropertyKeyRequestsList({ data }: { data: PropertyKeyReq
           schema: 'public',
           table: 'property_key_requests',
         },
-        payload => {
+        (payload) => {
           console.log('payload', payload)
           // Ensure payload.new has all the necessary properties to match the PropertyKeyRequest type
           const newPropertyKeyRequest: PropertyKeyRequest = {
@@ -118,8 +146,11 @@ export default function PropertyKeyRequestsList({ data }: { data: PropertyKeyReq
             property_id: payload.new.property_id,
             updated_at: payload.new.updated_at,
           }
-          setPropertyKeyRequests([...propertyKeyRequests, newPropertyKeyRequest])
-        },
+          setPropertyKeyRequests([
+            ...propertyKeyRequests,
+            newPropertyKeyRequest,
+          ])
+        }
       )
       .subscribe()
     return () => {
@@ -133,7 +164,7 @@ export default function PropertyKeyRequestsList({ data }: { data: PropertyKeyReq
 
   return (
     <section>
-      <div className="prose mb-2">
+      <div className="mb-2">
         <h1 className="text-primary">Key Requests</h1>
       </div>
       <Link href="/property/key/request/new">
@@ -142,61 +173,103 @@ export default function PropertyKeyRequestsList({ data }: { data: PropertyKeyReq
       <div className="rounded mt-4 p-1">
         <h2>Filter</h2>
 
-        <form>
-          <div className="form-control flex flex-row space-x-1">
-            {/* <label className="label cursor-pointer">
-              <span className="label-text">
-                <StarIcon className="h-6 w-6" />
-              </span>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div className="form-control flex flex-row space-x-1 rounded bg-primary">
+            <label className="label cursor-pointer">
+              <span className="label-text">Search</span>
               <input
-                type="checkbox"
-                className="toggle"
-                name="starred"
-                checked={filter.starred ?? false}
-                onChange={() =>
-                  setFilter({ ...filter, starred: !(filter.starred ?? false) })
-                }
+                type="text"
+                placeholder="Type here"
+                className="input w-full max-w-xs"
+                name="searchText"
+                value={filter.searchText ?? ''}
+                onChange={handleChange}
               />
             </label>
-
+            <div className="form-control">
+              <label className="label cursor-pointer">
+                <span className="label-text">New</span>
+                <input
+                  type="radio"
+                  name="mode"
+                  className="radio checked:bg-warning"
+                  value="new"
+                  checked={filter.mode === 'new'}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            <div className="form-control">
+              <label className="label cursor-pointer">
+                <span className="label-text">Out</span>
+                <input
+                  type="radio"
+                  name="mode"
+                  className="radio checked:bg-error`"
+                  value="out"
+                  checked={filter.mode === 'out'}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            <div className="form-control">
+              <label className="label cursor-pointer">
+                <span className="label-text">Returned</span>
+                <input
+                  type="radio"
+                  name="mode"
+                  className="radio checked:bg-success"
+                  value="in"
+                  checked={filter.mode === 'in'}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
             <label className="label cursor-pointer">
-              <span className="label-text">
-                <CheckIcon className="h-6 w-6" />
-              </span>
-              <input
-                type="checkbox"
-                className="toggle"
-                name="completed"
-                checked={filter.completed ?? false}
-                onChange={() =>
-                  setFilter({
-                    ...filter,
-                    completed: !(filter.completed ?? false),
-                  })
-                }
-              />
-            </label>
-
-            <label className="label cursor-pointer">
-              <span className="label-text">Group</span>
+              <span className="label-text">Status</span>
               <select
                 className="select w-full max-w-xs"
                 name="propertyKeyRequest_group_id"
-                value={filter.propertyKeyRequest_group_id ?? 0}
+                value={filter.property_key_status ?? 'any'}
                 onChange={handleChange}
               >
-                <option value={0}>No Group Filter</option>
-                <option value={1}>Group 1</option>
-                <option value={2}>Group 2</option>
+                <option value={0}>Any Status</option>
+                {property_key_statuses.map((property_key_status) => (
+                  <option
+                    value={property_key_status.key}
+                    key={property_key_status.key}
+                  >
+                    {property_key_status.value}
+                  </option>
+                ))}
               </select>
-            </label> */}
+            </label>
+            {filter.property_id && (
+              <>
+                <label className="label cursor-pointer">
+                  <span className="label-text">Property</span>
+                  {filter.property_id}
+                </label>
+              </>
+            )}
+            {filter.property_key_id && (
+              <>
+                <label className="label cursor-pointer">
+                  <span className="label-text">Key</span>
+                  {filter.property_key_id}
+                </label>
+              </>
+            )}
           </div>
         </form>
       </div>
       <article className="container flex flex-col space-y-2 mt-4">
         <h2>Results</h2>
-        {filteredPropertyKeyRequests.map(propertyKeyRequest => (
-          <PropertyKeyRequestRow propertyKeyRequest={propertyKeyRequest} key={propertyKeyRequest.id} />
+        {filteredPropertyKeyRequests.map((propertyKeyRequest) => (
+          <PropertyKeyRequestRow
+            propertyKeyRequest={propertyKeyRequest}
+            key={propertyKeyRequest.id}
+          />
         ))}
       </article>
     </section>
