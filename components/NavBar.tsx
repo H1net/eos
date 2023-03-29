@@ -23,45 +23,70 @@ export default function NavBar() {
 
   if (user) {
     return (
-      <div className="navbar bg-secondary text-secondary-content">
+      <div className="navbar bg-primary text-primary-content">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h7"
+                />
+              </svg>
             </label>
-            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-secondary text-secondary-content rounded-box w-52">
+            <ul
+              tabIndex={0}
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-primary text-primary-content rounded-box w-52"
+            >
               <li>
-                <Link href="/"><HomeIcon className='h-6 w-6' /> Home</Link>
+                <Link href="/">
+                  <HomeIcon className="h-6 w-6" /> Home
+                </Link>
               </li>
               <li>
-                <Link href="/property/key/request"><KeyIcon className='h-6 w-6' />Key Requests</Link>
+                <Link href="/property/key/request">
+                  <KeyIcon className="h-6 w-6" />
+                  Key Requests
+                </Link>
               </li>
               <li>
-                <Link href="/chat"><ChatBubbleLeftEllipsisIcon className='h-6 w-6' />Chat</Link>
+                <Link href="/chat">
+                  <ChatBubbleLeftEllipsisIcon className="h-6 w-6" />
+                  Chat
+                </Link>
               </li>
               <li>
-                <Link href="/example"><BuildingOfficeIcon className='h-6 w-6' /> Dev Tools</Link>
+                <Link href="/example">
+                  <BuildingOfficeIcon className="h-6 w-6" /> Dev Tools
+                </Link>
               </li>
               <li>
-                <Link href="/profile"><UserIcon className="h-6 w-6" />Profile</Link>
+                <Link href="/profile">
+                  <UserIcon className="h-6 w-6" />
+                  Profile
+                </Link>
               </li>
               <li>
-                <button onClick={signOut}><ArrowLeftOnRectangleIcon className='h-6 w-6' />Sign Out</button>
+                <button onClick={signOut}>
+                  <ArrowLeftOnRectangleIcon className="h-6 w-6" />
+                  Sign Out
+                </button>
               </li>
             </ul>
           </div>
         </div>
         <div className="navbar-center">
           <a className="btn btn-ghost normal-case text-xl">
-          <Image
-            src={logoImage}
-            alt="Eos"
-            width="30"
-            height="30"
-          />
-            <div className='ml-1'>
-              Eos
-            </div>
+            <Image src={logoImage} alt="Eos" width="30" height="30" />
+            <div className="ml-1">Eos</div>
           </a>
         </div>
         <div className="navbar-end">
@@ -70,13 +95,26 @@ export default function NavBar() {
           </button> */}
           <button className="btn btn-ghost btn-circle">
             <div className="indicator">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-              <span className="badge badge-xs badge-primary indicator-item"></span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                />
+              </svg>
+              <span className="badge badge-xs badge-secondary indicator-item"></span>
             </div>
           </button>
         </div>
       </div>
-    );
+    )
   }
 
   return <Auth view={view} />;
