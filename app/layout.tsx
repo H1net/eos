@@ -37,16 +37,16 @@ export default async function RootLayout({
 
   return (
     // <html lang="en" className='dark bg-[#343541]' data-theme="bumblebee">
-    <html lang="en" className='' data-theme="bumblebee">
-    <body>
-      {/* <body className='mx-2 bg-[#343541] text-white'> */}
+    <html lang="en" className="" data-theme="bigyel">
+      <body>
+        {/* <body className='mx-2 bg-[#343541] text-white'> */}
         <AuthProvider accessToken={accessToken}>
           <>
             <NavBar />
-            <div className='mx-2'>{children}</div>
+            <div className="mx-2">{children}</div>
             <Footer />
           </>
-          </AuthProvider>
+        </AuthProvider>
       </body>
     </html>
   )
